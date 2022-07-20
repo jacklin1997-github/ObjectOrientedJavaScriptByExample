@@ -1,8 +1,17 @@
 class Game {
   constructor() {
-    this.borad = new Board();
-    this.players = createPlayers();
+    this.board = new Board();
+    this.players = this.createPlayers();
     this.ready = false;
+  }
+
+  /**
+   * returns active player
+   * @return {Object}player - the active player
+   */
+  get activePlayer() {
+    //this.players is an array , we could use .find
+    return this.players.find((player) => player.active);
   }
 
   /**
@@ -18,8 +27,13 @@ class Game {
     return players;
   }
 
+  /**
+   * Initializes game.
+   */
   startGame() {
-    this.style.display = "none";
-    document.getElementById("play-area").style.opacity = "1";
+    this.board.drawHTMLBoard();
+    //activeToken 是 active tokens 中的第一個
+    this.activePlayer.activeToken.drawHTMLToken();
+    this.ready = true;
   }
 }
